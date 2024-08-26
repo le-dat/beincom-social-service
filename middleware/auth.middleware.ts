@@ -5,10 +5,10 @@ import { config } from '../constants/config'
 
 export const generateTokens = async (userId: string, email: string) => {
   const accessToken = jwt.sign({ email }, config.ACCESS_TOKEN_SECRET, {
-    expiresIn: '5m', // Access token expires in 5 minutes
+    expiresIn: '1m', // Access token expires in 5 minutes
   })
   const refreshToken = jwt.sign({ userId }, config.REFRESH_TOKEN_SECRET, {
-    expiresIn: '10m', // Refresh token expires in 10 minutes
+    expiresIn: '5m', // Refresh token expires in 10 minutes
   })
 
   await RefreshTokenModel.findOneAndUpdate(
@@ -17,7 +17,7 @@ export const generateTokens = async (userId: string, email: string) => {
     { upsert: true, new: true }
   )
 
-  return { accessToken, refreshToken }
+  return { access_token: accessToken, refresh_token: refreshToken }
 }
 
 export const authenticateToken = (

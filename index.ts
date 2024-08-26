@@ -19,7 +19,9 @@ app.use(express.urlencoded({ extended: true }))
 setupSwagger(app)
 
 // Define a basic route
-routes
+app.use('/api/auth', routes.authRoutes)
+app.use('/api/posts', routes.postRoutes)
+
 // Start the server
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port http://localhost:${process.env.PORT}`)

@@ -39,7 +39,9 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const tokens = await generateTokens(user._id.toString(), email)
-    return res.status(200).json(tokens)
+    return res
+      .status(200)
+      .json({ message: 'Login successful', data: { tokens, user } })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
@@ -50,7 +52,7 @@ export const logout = async (req: Request, res: Response) => {
   try {
     const refreshToken = req.body.refreshToken
     await RefreshTokenModel.findOneAndDelete({ token: refreshToken }).lean()
-    return res.status(204).json({ message: 'Logout successfully' })
+    return res.status(200).json({ message: 'Logout successfully' })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })
@@ -59,7 +61,7 @@ export const logout = async (req: Request, res: Response) => {
 
 export const refreshToken = async (req: Request, res: Response) => {
   try {
-    const refreshToken = req.body.refreshToken
+    const refreshToken = req.body.refresh_token
     if (!refreshToken) {
       return res.status(400).json({ message: 'Refresh token is required' })
     }
@@ -79,7 +81,7 @@ export const refreshToken = async (req: Request, res: Response) => {
     }
 
     const tokens = await generateTokens(user._id.toString(), user.email)
-    return res.status(200).json(tokens)
+    return res.status(200).json({ message: 'Token refreshed', data: tokens })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })

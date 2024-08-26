@@ -17,7 +17,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./routes/*.ts', './controllers/*.ts'], // Path to the API docs
+  apis: ['../routes/*.ts', '../controllers/*.ts', '../index.ts'], // Path to the API docs
 }
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions)

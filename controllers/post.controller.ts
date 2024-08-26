@@ -15,6 +15,17 @@ export const createPost = async (req: Request, res: Response) => {
   }
 }
 
+export const createManyPosts = async (req: Request, res: Response) => {
+  try {
+    const { posts } = req.body
+    await PostModel.insertMany(posts)
+    return res.status(201).json({ message: 'Posts created' })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
     const page = parseInt(req.query.page as string) || 1
@@ -33,6 +44,43 @@ export const getAllPosts = async (req: Request, res: Response) => {
       page,
       totalPages,
     })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export const filterPosts = async (req: Request, res: Response) => {
+  try {
+    const { content, date, numberOfComments, page = 1, limit = 10 } = req.query
+
+    // Check if any filters are provided
+    const hasFilters = content || date || numberOfComments
+
+    // If no filters are provided, get all posts with pagination
+    if (!hasFilters) {
+      return getAllPosts(req, res)
+    }
+
+    // Build the query object dynamically based on provided filters
+    const query: any = {}
+    if (content) {
+      query.$or = [
+        { content: { $regex: content, $options: 'i' } },
+        { title: { $regex: content, $options: 'i' } },
+      ]
+    }
+    if (date) query.date = new Date(date as string)
+    if (numberOfComments) query.numberOfComments = Number(numberOfComments)
+
+    const posts = await PostModel.find(query)
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit))
+      .lean()
+
+    return res
+      .status(200)
+      .json({ message: 'Get list filter success', data: posts })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error' })

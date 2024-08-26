@@ -9,9 +9,9 @@ import { authenticateToken } from '../middleware/auth.middleware'
 
 const authRoutes = Router()
 
-authRoutes.post('/auth/register', register)
-authRoutes.post('/auth/login', login)
-authRoutes.post('/auth/logout', authenticateToken, logout)
-authRoutes.post('/auth/refresh-token', refreshToken)
+authRoutes.post('/register', register)
+authRoutes.post('/login', login)
+authRoutes.post('/logout', authenticateToken, logout)
+authRoutes.post('/refresh-token', refreshToken)
 
 export default authRoutes

@@ -1,6 +1,11 @@
-# Authentication API
+# Beincom API
 
-This project provides a basic authentication API using Node.js, Express, TypeScript, and MongoDB with Mongoose. It includes endpoints for user registration, login, logout, and token refresh.
+This project provides a basic authentication API using Node.js, Express, TypeScript, and MongoDB with Mongoose.
+
+It includes endpoints for
+
+- user (registration, login, logout, and token refresh).
+- post (CRUD post, filter post, CRUD comment ).
 
 ## Table of Contents
 
@@ -16,19 +21,29 @@ This project provides a basic authentication API using Node.js, Express, TypeScr
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/auth-api.git
-   cd auth-api
+   git clone https://github.com/le-dat/beincom-social-service
    ```
 
 2. Install dependencies:
 
    ```sh
-   npm install
+   npm install | yarn install
    ```
 
-3. Create a `.env` file in the root directory and add your MongoDB URI:
+3. Create a `.env` file in the root directory
+
    ```plaintext
-   MONGODB_URI=mongodb://localhost:27017/your_database_name
+    PORT=4000
+
+    # JWT
+    ACCESS_TOKEN_SECRET=secretkeytaiday
+    REFRESH_TOKEN_SECRET=secretkeytaiday
+
+    # MONGO DATABASE
+    DATABASE_NAME=beincom-server
+    USERNAME_DB=le-dat
+    PASSWORD_DB=le-dat
+    CLIENT_ID=AXlfyJ2QROzOTSv_v9dNbFStavQmkh0HAhaVSB7cTJARukMq30pIKUUGuHrw1mMPu7zrHqj4LuKYjXrT
    ```
 
 ## Configuration
@@ -40,10 +55,10 @@ Ensure you have a MongoDB instance running. You can configure the MongoDB URI in
 1. Start the development server:
 
    ```sh
-   npm start
+   npm start | yarn start | yarn dev
    ```
 
-2. The server will start on `http://localhost:3000`.
+2. The server will start on `http://localhost:4000`.
 
 ## API Endpoints
 
@@ -116,6 +131,6 @@ All endpoints return appropriate HTTP status codes and error messages in case of
 - `400 Bad Request`: Invalid input or missing required fields.
 - `500 Internal Server Error`: An unexpected error occurred on the server.
 
-## License
+## Author
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Le Dat. See the [Website](https://ledat-portfolio.vercel.app/) file for details.

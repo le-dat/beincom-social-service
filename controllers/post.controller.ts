@@ -52,10 +52,16 @@ export const getAllPosts = async (req: Request, res: Response) => {
 
 export const filterPosts = async (req: Request, res: Response) => {
   try {
-    const { content, date, numberOfComments, page = 1, limit = 10 } = req.query
+    const {
+      content,
+      date,
+      number_of_comments,
+      page = 1,
+      limit = 10,
+    } = req.query
 
     // Check if any filters are provided
-    const hasFilters = content || date || numberOfComments
+    const hasFilters = content || date || number_of_comments
 
     // If no filters are provided, get all posts with pagination
     if (!hasFilters) {
@@ -70,8 +76,9 @@ export const filterPosts = async (req: Request, res: Response) => {
         { title: { $regex: content, $options: 'i' } },
       ]
     }
-    if (date) query.date = new Date(date as string)
-    if (numberOfComments) query.numberOfComments = Number(numberOfComments)
+    if (date) query.createdAt = { $gte: new Date(date as string) }
+    if (number_of_comments)
+      query.comments = { $size: Number(number_of_comments) }
 
     const posts = await PostModel.find(query)
       .skip((Number(page) - 1) * Number(limit))

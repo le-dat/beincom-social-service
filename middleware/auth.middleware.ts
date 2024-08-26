@@ -5,7 +5,7 @@ import { config } from '../constants/config'
 
 export const generateTokens = async (userId: string, email: string) => {
   const accessToken = jwt.sign({ email }, config.ACCESS_TOKEN_SECRET, {
-    expiresIn: '2m', // Access token expires in 5 minutes
+    expiresIn: '2m', // Access token expires in 2 minutes
   })
   const refreshToken = jwt.sign({ userId }, config.REFRESH_TOKEN_SECRET, {
     expiresIn: '10m', // Refresh token expires in 10 minutes

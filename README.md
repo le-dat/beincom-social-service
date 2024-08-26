@@ -133,4 +133,4 @@ All endpoints return appropriate HTTP status codes and error messages in case of
 
 ## Author
 
-Le Dat. See the [Website](https://ledat-portfolio.vercel.app/) file for details.
+Le Quoc Dat. See the [Website Portfolio](https://ledat-portfolio.vercel.app/) for details.

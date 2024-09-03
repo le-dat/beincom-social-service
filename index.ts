@@ -21,6 +21,7 @@ setupSwagger(app)
 // Define a basic route
 app.use('/api/auth', routes.authRoutes)
 app.use('/api/posts', routes.postRoutes)
+app.use('/api/users', routes.userRoutes)
 
 // Start the server
 app.listen(process.env.PORT, () => {

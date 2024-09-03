@@ -28,7 +28,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body
     const user = await UserModel.findOne({ email })
-      .select('email password')
+      .select('name email password')
       .lean()
     if (!user) {
       return res.status(400).json({ message: 'Email not found' })
